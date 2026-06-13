@@ -1,18 +1,20 @@
-include(fetchContent)
+# Important to at least be version 3.11
+cmake_minimum_required(VERSION 3.11)
+project(Benny)
+set(CMAKE_CXX_STANDARD 20)
+
+include(FetchContent)
 
 # {!} START for Configuration
 SET(ZSTD_VERSION 1.5.7)
+SET(DOWNLOAD_EXTRACT_TIMESTAMP 1)
 # {!} END for Configuration
-
-cmake_minimum_required(VERSION 3.29.2)
-project(Benny)
-
-set(CMAKE_CXX_STANDARD 20)
 
 add_library(BennyLib STATIC
         Encodings/ZStandard.cpp
         Encodings/ZStandard.hpp
-        Encodings/Encodings.hpp)
+        Encodings/EncodingsInclude.hpp
+)
 
 add_executable(Benny main.cpp)
 target_link_libraries(Benny PRIVATE BennyLib)
@@ -47,7 +49,7 @@ target_include_directories(
 
 # {!} START for OpenSSL ─────────────────────────────────────────────────────────────────
 IF(WIN32)
-    SET(OPENSSL_ROOT_DIR "C:/msys64/mingw64")
+    SET(OPENSSL_ROOT_DIR "C:/msys64/mingw64") # Important d'installer MINGW32 -> MINGW64
 endif()
 
 find_package(OpenSSL REQUIRED)
@@ -90,7 +92,8 @@ FetchContent_MakeAvailable(googletest)
 
 add_executable(tests Tests/ZStandard.cpp
         Tests/CUrl.cpp
-        Tests/OpenSSL.cpp)
+        Tests/OpenSSL.cpp
+)
 target_link_libraries(tests PRIVATE GTest::gtest_main BennyLib)
 
 include(GoogleTest)

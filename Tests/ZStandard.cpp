@@ -1,11 +1,11 @@
 #include "gtest/gtest.h"
-#include "../Encodings/Encodings.hpp"
+#include "../Encodings/EncodingsInclude.hpp"
 
 /// @brief Compression and decompression roundtrip test (small string)
 TEST(ZStandard, SmallCompressionDecompressionRoundtrip)
 {
     // Setup
-    const Encodings::ZStandardStreaming& stream = Encodings::ZStandardStreaming::getStream();
+    const Encodings::ZStandardStreaming& stream = Encodings::ZStandardStreaming::getSingleton();
     const std::string original = "Hello, this is a test string for ZSTD compression and decompression!";
     const std::vector<char> originalVector(original.begin(), original.end());
 
@@ -17,7 +17,7 @@ TEST(ZStandard, SmallCompressionDecompressionRoundtrip)
 /// @brief Compression and decompression roundtrip test (large string)
 TEST(ZStandard, LargeCompressionDecompressionRoundtrip)
 {
-    const Encodings::ZStandardStreaming& stream = Encodings::ZStandardStreaming::getStream();
+    const Encodings::ZStandardStreaming& stream = Encodings::ZStandardStreaming::getSingleton();
     const std::string original(10000000, 'a');
     const std::vector<char> originalVector(original.begin(), original.end());
 
