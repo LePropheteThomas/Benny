@@ -2,7 +2,7 @@
 
 namespace Encodings
 {
-    ZStandardStreaming::ZStandardStreaming(int compressionLevel, int nmbOfWorkers)
+    ZStandardStreaming::ZStandardStreaming(int compressionLevel, int nmbOfWorkers) : Encodings()
     {
         this->cctx = ZSTD_createCCtx();
         this->dctx = ZSTD_createDCtx();
@@ -83,9 +83,8 @@ namespace Encodings
         return compressedData;
     }
 
-    const ZStandardStreaming& ZStandardStreaming::getStream()
-    {
-        static ZStandardStreaming stream;
-        return stream;
+    const ZStandardStreaming & ZStandardStreaming::getSingleton() {
+        static ZStandardStreaming inst;
+        return inst;
     }
 }

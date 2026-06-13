@@ -3,9 +3,11 @@
 #include "zstd.h"
 #include <vector>
 
+#include "Encodings.hpp"
+
 namespace Encodings
 {
-    class ZStandardStreaming
+    class ZStandardStreaming : public Encodings
     {
     private:
         ZSTD_CCtx* cctx = nullptr; ///< The streaming compression context for ZSTD's lifetime
@@ -25,18 +27,10 @@ namespace Encodings
         ZStandardStreaming(const ZStandardStreaming&) = delete;
         ZStandardStreaming& operator=(const ZStandardStreaming&) = delete;
 
-        /// @brief Decompresses data using the current decompression context
-        /// @param compressedData The compressed data
-        /// @return The decompressed data
-        [[nodiscard]] std::vector<char> decompressData(const std::vector<char>& compressedData) const;
+        [[nodiscard]] std::vector<char> decompressData(const std::vector<char>& compressedData) const override;
 
-        /// @brief Decompresses data using the current compression context
-        /// @param decompressedData The raw/decompressed data
-        /// @return The compressed data
-        [[nodiscard]] std::vector<char> compressData(const std::vector<char>& decompressedData) const;
+        [[nodiscard]] std::vector<char> compressData(const std::vector<char>& decompressedData) const override;
 
-        /// @brief Returns an initialized ZStandardStreaming singleton
-        /// @return A reference to an initialized ZStandardStreaming singleton
-        [[nodiscard]] static const ZStandardStreaming& getStream();
+        [[nodiscard]] static const ZStandardStreaming& getSingleton();
     };
 }
