@@ -14,6 +14,9 @@ add_library(BennyLib STATIC
         Encodings/ZStandard.cpp
         Encodings/ZStandard.hpp
         Encodings/EncodingsInclude.hpp
+        Request/RequestParameters.hpp
+        Request/RequestManager.cpp
+        Request/RequestManager.hpp
 )
 
 add_executable(Benny main.cpp)

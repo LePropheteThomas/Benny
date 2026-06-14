@@ -83,7 +83,7 @@ namespace Encodings
         return compressedData;
     }
 
-    const ZStandardStreaming & ZStandardStreaming::getSingleton() {
+    const ZStandardStreaming& ZStandardStreaming::getSingleton() {
         static ZStandardStreaming inst;
         return inst;
     }
