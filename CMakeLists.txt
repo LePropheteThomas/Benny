@@ -17,6 +17,9 @@ add_library(BennyLib STATIC
         Request/RequestParameters.hpp
         Request/RequestManager.cpp
         Request/RequestManager.hpp
+        Request/RequestResponse.hpp
+        Request/Transactions/WebsocketTransaction.cpp
+        Request/Transactions/WebsocketTransaction.hpp
 )
 
 add_executable(Benny main.cpp)
