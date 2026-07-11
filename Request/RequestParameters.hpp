@@ -1,4 +1,5 @@
 #pragma once
+#include <list>
 #include <string>
 #include <utility>
 
@@ -13,6 +14,7 @@ namespace Request {
     protected:
         std::string url; ///< The URL for the request
         RequestMethods method; ///< The type of the request
+        std::list<std::string> headers; ///< The headers
 
         /// @brief Protected constructor to make inheritance possible
         /// @param url The URL for the request
@@ -20,6 +22,9 @@ namespace Request {
         RequestParameters(std::string url, const RequestMethods method): url(std::move(url)), method(method) {};
 
     public:
+        [[nodiscard]] std::string getURL() const { return url; }
+        [[nodiscard]] RequestMethods getMethod() const { return method; }
+
         /// @brief Default constructor
         /// @tparam M The type of the normal request (ex.: Request::RequestMethods::GET)
         /// @param url The URL of the request

@@ -6,9 +6,9 @@
 
 namespace Request {
     struct RequestResponse {
-        std::map<std::string, std::string> headers;
-        std::string body;
-        unsigned int statusCode;
+        std::map<std::string, std::string> headers; ///< The response headers
+        std::string body; ///< The body of the response
+        unsigned int statusCode; ///< The status code of the response
 
         RequestResponse(): statusCode(0) {};
     };
