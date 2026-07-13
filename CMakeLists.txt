@@ -5,6 +5,9 @@ set(CMAKE_CXX_STANDARD 20)
 
 include(FetchContent)
 
+# Necessary to have commands
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # {!} START for Configuration
 SET(ZSTD_VERSION 1.5.7)
 SET(DOWNLOAD_EXTRACT_TIMESTAMP 1)
