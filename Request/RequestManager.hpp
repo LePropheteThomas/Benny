@@ -19,6 +19,7 @@ namespace Request {
         std::mutex queueMutex; ///< The mutex for each thread to pick data in the queue
         std::queue<RequestTask> tasksQueue; ///< The queue that contains the request tasks
         std::condition_variable tasksCondition; ///< The condition variable for threads to run
+        std::vector<std::thread> workerThreads; ///< The worker threads
         bool stop_pool = false; ///< The boolean that stops the threads
 
         /// @brief The main worker's loop (for each thread)
@@ -27,6 +28,7 @@ namespace Request {
         /// @brief Constructor of the request manager
         /// @param threadAmounts Amount of threads to run continuously
         RequestManager(unsigned short threadAmounts);
+        ~RequestManager();
     public:
         /// @brief
         /// @return A singleton of the request manager

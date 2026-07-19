@@ -31,6 +31,24 @@ namespace Request {
     }
 
     RequestManager::RequestManager(unsigned short threadAmounts) {
+        workerThreads.reserve(threadAmounts);
+        for (unsigned short i = 0; i < threadAmounts; i++)
+            workerThreads.emplace_back(&RequestManager::workerThreadLoop, this);
+    }
+
+    RequestManager::~RequestManager() {
+        { // Obtains the lock and sets stop_pool at true, which let's wait for lost wakeup
+            std::lock_guard<std::mutex> lock(this->queueMutex);
+            this->stop_pool = true;
+        }
+
+        tasksCondition.notify_all();
+
+        // Joins the threads so that the main thread won't exit until all the child
+        // threads aren't killed
+        for (std::thread& task : workerThreads)
+            if (task.joinable())
+                task.join();
     }
 
     const RequestManager& RequestManager::getSingleton() {
